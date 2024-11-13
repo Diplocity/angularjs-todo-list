@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input[type="text"], input[type="date"], input[type="time"] {
+            padding: 8px;
+            margin-right: 8px;
+            width: 200px;
+        }
+        button {
+            margin-left: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div ng-controller="TodoController">
+        <h2>To-Do List App</h2>
+
+        <!-- Input Form -->
+        <input type="text" ng-model="newTodo" placeholder="Enter new task" />
+        <input type="date" ng-model="dueDate" placeholder="Due Date" />
+        <input type="time" ng-model="dueTime" placeholder="Due Time" />
+        <button ng-click="addTodo()">Add</button>
+
+        <!-- To-Do List -->
+        <ul>
+            <li ng-repeat="todo in todos">
+                <span ng-class="{'completed': todo.completed}">
+                    {{ todo.text }}
+                    <small> - Due: {{ todo.dueDate | date:'MMM d, yyyy' }} {{ todo.dueTime }}</small>
+                </span>
+                <button ng-click="toggleCompleted(todo)">
+                    {{ todo.completed ? 'Undo' : 'Complete' }}
+                </button>
+                <button ng-click="removeTodo($index)">Delete</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Link to your AngularJS app file -->
+    <script src="js/app.js"></script>
+</body>
+</html>
